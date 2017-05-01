@@ -23,7 +23,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+$domain = (ENVIRONMENT === 'development') ? 'deve.hyum.zone' : 'wellmade.club';
+
+if ( ! empty($_SERVER['HTTPS']))
+{
+	$config['base_url'] = "https://{$domain}";
+}
+else
+{
+	$config['base_url'] = "http://{$domain}";
+}
 
 /*
 |--------------------------------------------------------------------------

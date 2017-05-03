@@ -23,7 +23,9 @@ class Layout {
 
 	public function load_view($layout_style = 'default', $data = array())
 	{
+		$data['_header'] = VIEWPATH . "{$this->uri_segment[0]}/header.php";
 		$data['_container'] = VIEWPATH . "{$this->uri_segment[0]}/{$this->uri_segment[1]}.php";
+		$data['_footer'] = VIEWPATH . "{$this->uri_segment[0]}/footer.php";
 
 		$this->CI->load->view("layout/{$layout_style}", $data);
 	}

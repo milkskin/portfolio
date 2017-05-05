@@ -9,7 +9,7 @@ class Cloudstorage extends CI_Controller {
 		$this->load->helper('tree');
 
 		$uri_segment = explode('/', uri_string());
-		$dir_struct = directory_map(FCPATH . 'data');
+		$dir_struct = directory_map(readlink(FCPATH . 'data'));
 
 		$data = array(
 			'dir_list' => structure_to_markup(array('/' => $dir_struct), "/{$uri_segment[0]}"),

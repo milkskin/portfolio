@@ -27,6 +27,14 @@ class Layout {
 		$data['_container'] = VIEWPATH . "{$this->uri_segment[0]}/{$this->uri_segment[1]}.php";
 		$data['_footer'] = VIEWPATH . "{$this->uri_segment[0]}/footer.php";
 
-		$this->CI->load->view("layout/{$layout_style}", $data);
+		$layout = "layout/{$layout_style}";
+
+		if ($layout_style === 'cloudstorage')
+		{
+			$data['_container'] = VIEWPATH . "{$this->uri_segment[0]}/index.php";
+			$layout = "layout/default";
+		}
+
+		$this->CI->load->view($layout, $data);
 	}
 }

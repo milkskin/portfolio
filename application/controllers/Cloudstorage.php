@@ -15,6 +15,6 @@ class Cloudstorage extends CI_Controller {
 			'dir_list' => structure_to_markup(array('/' => $dir_struct), "/{$uri_segment[0]}"),
 		);
 
-		$this->layout->load_view('default', $data);
+		$this->layout->load_view('cloudstorage', $data);
 	}
 }

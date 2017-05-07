@@ -7,7 +7,7 @@ $(function () {
 			"data" : <?php echo $dir_list_json . PHP_EOL; ?>
 		},
 		"plugins" : [
-			"contextmenu", "types", "unique"
+			"contextmenu", "dnd", "types", "unique"
 		],
 		"contextmenu" : {
 			"items" : {

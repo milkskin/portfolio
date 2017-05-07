@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 if ( ! function_exists('structure_to_markup'))
 {
-	function structure_to_markup($dir_struct = array(), $alter_uri = '/')
+	function structure_to_markup($dir_struct = array(), $alter_uri = '/', $is_root = TRUE)
 	{
 		$uri_segment = explode('/', uri_string());
 		$dir_path = readlink(FCPATH . 'data') . preg_replace("/^\/{$uri_segment[0]}/", '', $alter_uri);
@@ -19,12 +19,12 @@ if ( ! function_exists('structure_to_markup'))
 			{
 				$inner_tag .= '<li>';
 				$inner_tag .= ('<a href="' . $alter_uri . $key . '">');
-				$inner_tag .= $key;
+				$inner_tag .= ($is_root ? $key : preg_replace('/\/$/', '', $key));
 				$inner_tag .= '</a>';
 
 				if ( ! empty($value))
 				{
-					$inner_tag .= structure_to_markup($value, $alter_uri . $key);
+					$inner_tag .= structure_to_markup($value, $alter_uri . $key, FALSE);
 				}
 
 				$inner_tag .= '</li>';
@@ -63,7 +63,7 @@ if ( ! function_exists('structure_to_array'))
 				$node_info = array(
 					'id' => "dir_{$inode}",
 					'parent' => $parent_id,
-					'text' => $key,
+					'text' => ($is_root ? $key : preg_replace('/\/$/', '', $key)),
 					'state' => array(
 						'opened' => FALSE,
 						'selected' => FALSE,

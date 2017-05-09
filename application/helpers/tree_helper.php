@@ -11,6 +11,8 @@ if ( ! function_exists('structure_to_markup'))
 		$inner_tag = '';
 		$close_tag = '</ul>';
 
+		ksort($dir_struct);
+
 		foreach ($dir_struct as $key => $value)
 		{
 			$file_path = $dir_path . preg_replace('/\/$/', '', $key);
@@ -19,7 +21,7 @@ if ( ! function_exists('structure_to_markup'))
 			{
 				$inner_tag .= '<li>';
 				$inner_tag .= ('<a href="' . $alter_uri . $key . '">');
-				$inner_tag .= ($is_root ? $key : preg_replace('/\/$/', '', $key));
+				$inner_tag .= ($is_root ? $key : rawurldecode(preg_replace('/\/$/', '', $key)));
 				$inner_tag .= '</a>';
 
 				if ( ! empty($value))
@@ -50,6 +52,8 @@ if ( ! function_exists('structure_to_array'))
 		$dir_path = readlink(FCPATH . 'data') . preg_replace("/^\/{$uri_segment[0]}/", '', $alter_uri);
 		$node_list = array();
 
+		ksort($dir_struct);
+
 		foreach ($dir_struct as $key => $value)
 		{
 			$file_path = $dir_path . preg_replace('/\/$/', '', $key);
@@ -63,7 +67,7 @@ if ( ! function_exists('structure_to_array'))
 				$node_info = array(
 					'id' => "dir_{$inode}",
 					'parent' => $parent_id,
-					'text' => ($is_root ? $key : preg_replace('/\/$/', '', $key)),
+					'text' => ($is_root ? $key : rawurldecode(preg_replace('/\/$/', '', $key))),
 					'state' => array(
 						'opened' => FALSE,
 						'selected' => FALSE,

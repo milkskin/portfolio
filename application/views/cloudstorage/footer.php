@@ -1,9 +1,71 @@
 <script>
 $(function () {
 	$("#jstree_demo_div")
+	.on("create_node.jstree", function (e, data) {
+		var inst = data.instance
+		var parent = inst.get_node(data.parent)
+		var newnode_text = data.node.text
+
+		inst.set_type(data.node, "temporary")
+		inst.set_text(data.node, "Creating ...")
+		inst.open_node(parent)
+
+		$.post("/storagetree?operation=create_node", {
+			"parent_uri" : parent.a_attr.href,
+			"text" : newnode_text
+		})
+		.fail(function () {
+			inst.refresh()
+		})
+		.done(function (d) {
+			data.node.a_attr.href = parent.a_attr.href + d.text + '/'
+			inst.set_id(data.node, d.id)
+			inst.set_text(data.node, newnode_text)
+			inst.set_type(data.node, "default")
+			inst.edit(data.node)
+		})
+	})
+	.on("rename_node.jstree", function (e, data) {
+		if (data.text === data.old) {
+			return false
+		}
+
+		var inst = data.instance
+		var parent = inst.get_node(data.node.parent)
+
+		inst.set_type(data.node, "temporary")
+
+		$.post("/storagetree?operation=rename_node", {
+			"parent_uri" : parent.a_attr.href,
+			"new_text" : data.text,
+			"old_text" : data.old
+		})
+		.fail(function () {
+			inst.refresh()
+		})
+		.done(function (d) {
+			data.node.a_attr.href = parent.a_attr.href + d.text + '/'
+			inst.set_type(data.node, "default")
+		})
+	})
+	.on("delete_node.jstree", function (e, data) {
+		var inst = data.instance
+
+		$.post("/storagetree?operation=delete_node", {
+			"uri" : data.node.a_attr.href
+		})
+		.fail(function () {
+			inst.refresh()
+		})
+		.done(function (d) {
+		})
+	})
 	.jstree({
 		"core" : {
-			"check_callback" : true,
+			"check_callback" : function (operation, node, node_parent, node_position, more) {
+				// prevent rename at root node triggered by F2 key
+				return (node_parent.id !== '#')
+			},
 			"data" : <?php echo $dir_list_json . PHP_EOL; ?>,
 			"multiple" : false
 		},
@@ -15,7 +77,12 @@ $(function () {
 				"create" : {
 					"separator_before" : false,
 					"separator_after" : true,
-					"_disabled" : false,
+					"_disabled" : function (data) {
+						var inst = $.jstree.reference(data.reference)
+						var obj = inst.get_node(data.reference)
+
+						return (obj.type === "temporary")
+					},
 					"label" : "Create",
 					"title" : "Create",
 					"action" : function (data) {
@@ -42,7 +109,7 @@ $(function () {
 						var inst = $.jstree.reference(data.reference)
 						var obj = inst.get_node(data.reference)
 
-						return (obj.type === "root")
+						return (obj.type === "temporary" || obj.type === "root")
 					},
 					"label" : "Rename",
 					"title" : "Rename",
@@ -61,7 +128,7 @@ $(function () {
 						var inst = $.jstree.reference(data.reference)
 						var obj = inst.get_node(data.reference)
 
-						return (obj.type === "root")
+						return (obj.type === "temporary" || obj.type === "root")
 					},
 					"label" : "Delete",
 					"title" : "Delete",
@@ -85,7 +152,7 @@ $(function () {
 						var inst = $.jstree.reference(data.reference)
 						var obj = inst.get_node(data.reference)
 
-						return (obj.type === "root")
+						return (obj.type === "temporary" || obj.type === "root")
 					},
 					"label" : "Cut",
 					"title" : "Cut",
@@ -109,7 +176,7 @@ $(function () {
 						var inst = $.jstree.reference(data.reference)
 						var obj = inst.get_node(data.reference)
 
-						return (obj.type === "root")
+						return (obj.type === "temporary" || obj.type === "root")
 					},
 					"label" : "Copy",
 					"title" : "Copy",
@@ -131,8 +198,9 @@ $(function () {
 					"separator_after" : false,
 					"_disabled" : function (data) {
 						var inst = $.jstree.reference(data.reference)
+						var obj = inst.get_node(data.reference)
 
-						return ( ! inst.can_paste())
+						return (obj.type === "temporary" || ! inst.can_paste())
 					},
 					"label" : "Paste",
 					"title" : "Paste",

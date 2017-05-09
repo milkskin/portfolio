@@ -4,7 +4,8 @@ $(function () {
 	.jstree({
 		"core" : {
 			"check_callback" : true,
-			"data" : <?php echo $dir_list_json . PHP_EOL; ?>
+			"data" : <?php echo $dir_list_json . PHP_EOL; ?>,
+			"multiple" : false
 		},
 		"plugins" : [
 			"contextmenu", "dnd", "types", "unique"

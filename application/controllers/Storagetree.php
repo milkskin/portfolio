@@ -69,6 +69,22 @@ class Storagetree extends CI_Controller {
 
 					break;
 				case 'move_node':
+					$new_parent_uri = $this->input->post('new_parent_uri');
+					$old_parent_uri = $this->input->post('old_parent_uri');
+					$text = $this->input->post('text');
+
+					$new_path = readlink(FCPATH . 'data') . preg_replace("/^\/cloudstorage/", '', $new_parent_uri) . rawurlencode($text);
+					$old_path = readlink(FCPATH . 'data') . preg_replace("/^\/cloudstorage/", '', $old_parent_uri) . rawurlencode($text);
+
+					exec("mv {$old_path} {$new_path}", $output, $status);
+					if ($status !== 0)
+					{
+						throw new Exception('Cannot move directory');
+					}
+					unset($output);
+					unset($status);
+
+					$result['text'] = rawurlencode($text);
 					break;
 				case 'copy_node':
 					break;

@@ -18,7 +18,7 @@ $(function () {
 			inst.refresh()
 		})
 		.done(function (d) {
-			data.node.a_attr.href = parent.a_attr.href + d.text + '/'
+			data.node.a_attr.href = parent.a_attr.href + d.text + "/"
 			inst.set_id(data.node, d.id)
 			inst.set_text(data.node, newnode_text)
 			inst.set_type(data.node, "default")
@@ -44,7 +44,7 @@ $(function () {
 			inst.refresh()
 		})
 		.done(function (d) {
-			data.node.a_attr.href = parent.a_attr.href + d.text + '/'
+			data.node.a_attr.href = parent.a_attr.href + d.text + "/"
 			inst.set_type(data.node, "default")
 		})
 	})
@@ -64,7 +64,7 @@ $(function () {
 		"core" : {
 			"check_callback" : function (operation, node, node_parent, node_position, more) {
 				// prevent rename at root node triggered by F2 key
-				return (node_parent.id !== '#')
+				return (node_parent.id !== "#")
 			},
 			"data" : <?php echo $dir_list_json . PHP_EOL; ?>,
 			"multiple" : false

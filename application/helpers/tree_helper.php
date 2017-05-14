@@ -49,6 +49,7 @@ if ( ! function_exists('structure_to_array'))
 	{
 		$is_root = ($parent_id === '#');
 		$uri_segment = explode('/', uri_string());
+		$uri_matched_path = readlink(FCPATH . 'data') . preg_replace("/^{$uri_segment[0]}/", '', uri_string());
 		$dir_path = readlink(FCPATH . 'data') . preg_replace("/^\/{$uri_segment[0]}/", '', $alter_uri);
 		$node_list = array();
 
@@ -70,7 +71,7 @@ if ( ! function_exists('structure_to_array'))
 					'text' => ($is_root ? $key : rawurldecode(preg_replace('/\/$/', '', $key))),
 					'state' => array(
 						'opened' => FALSE,
-						'selected' => FALSE,
+						'selected' => ($file_path === $uri_matched_path),
 					),
 					'a_attr' => array(
 						'href' => $alter_uri . $key,

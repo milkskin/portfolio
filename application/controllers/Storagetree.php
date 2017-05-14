@@ -28,12 +28,6 @@ class Storagetree extends CI_Controller {
 					unset($output);
 					unset($status);
 
-					exec("ls -ai {$dir_path} | awk '{print $1}' | sed '2,\$d'", $file_info);
-					$inode = $file_info[0];
-					unset($file_info);
-
-					$result['id'] = "dir_{$inode}";
-					$result['text'] = rawurlencode($text);
 					break;
 				case 'rename_node':
 					$parent_uri = $this->input->post('parent_uri');
@@ -52,7 +46,6 @@ class Storagetree extends CI_Controller {
 					unset($output);
 					unset($status);
 
-					$result['text'] = rawurlencode($new_text);
 					break;
 				case 'delete_node':
 					$uri = $this->input->post('uri');
@@ -84,7 +77,6 @@ class Storagetree extends CI_Controller {
 					unset($output);
 					unset($status);
 
-					$result['text'] = rawurlencode($text);
 					break;
 				case 'copy_node':
 					$new_parent_uri = $this->input->post('new_parent_uri');
@@ -102,7 +94,6 @@ class Storagetree extends CI_Controller {
 					unset($output);
 					unset($status);
 
-					$result['text'] = rawurlencode($text);
 					break;
 				default:
 					throw new Exception('Unsupported operation: ' . $operation);

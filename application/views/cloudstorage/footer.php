@@ -18,8 +18,7 @@ $(function () {
 			inst.refresh()
 		})
 		.done(function (d) {
-			data.node.a_attr.href = parent.a_attr.href + d.text + "/"
-			inst.set_id(data.node, d.id)
+			data.node.a_attr.href = parent.a_attr.href + encodeURIComponent(d.text) + "/"
 			inst.set_text(data.node, newnode_text)
 			inst.set_type(data.node, "default")
 			inst.edit(data.node)
@@ -44,7 +43,7 @@ $(function () {
 			inst.refresh()
 		})
 		.done(function (d) {
-			data.node.a_attr.href = parent.a_attr.href + d.text + "/"
+			data.node.a_attr.href = parent.a_attr.href + encodeURIComponent(d.text) + "/"
 			inst.set_type(data.node, "default")
 		})
 	})
@@ -78,7 +77,7 @@ $(function () {
 		.done(function (d) {
 			var descendant = data.node.children.slice()
 
-			data.node.a_attr.href = new_parent.a_attr.href + d.text + "/"
+			data.node.a_attr.href = new_parent.a_attr.href + encodeURIComponent(d.text) + "/"
 
 			for (var idx = 0; idx < descendant.length; idx += 1) {
 				var value = descendant[idx]
@@ -113,7 +112,7 @@ $(function () {
 		.done(function (d) {
 			var descendant = data.node.children.slice()
 
-			data.node.a_attr.href = new_parent.a_attr.href + d.text + "/"
+			data.node.a_attr.href = new_parent.a_attr.href + encodeURIComponent(d.text) + "/"
 
 			for (var idx = 0; idx < descendant.length; idx += 1) {
 				var value = descendant[idx]
@@ -136,7 +135,7 @@ $(function () {
 				// prevent rename at root node triggered by F2 key
 				return (node_parent.id !== "#")
 			},
-			"data" : <?php echo $dir_list_json . PHP_EOL; ?>,
+			"data" : <?php echo $dir_list_json; ?>,
 			"multiple" : false
 		},
 		"plugins" : [

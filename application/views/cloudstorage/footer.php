@@ -76,14 +76,21 @@ $(function () {
 			inst.refresh()
 		})
 		.done(function (d) {
+			var descendant = data.node.children.slice()
+
 			data.node.a_attr.href = new_parent.a_attr.href + d.text + "/"
 
-			$.each(data.node.children_d, function (idx, value) {
+			for (var idx = 0; idx < descendant.length; idx += 1) {
+				var value = descendant[idx]
 				var obj = inst.get_node(value)
 				var obj_parent = inst.get_node(obj.parent)
 
 				obj.a_attr.href = obj_parent.a_attr.href + encodeURIComponent(obj.text) + "/"
-			})
+
+				$.each(obj.children, function (i, v) {
+					descendant.push(v)
+				})
+			}
 
 			inst.set_type(data.node, "default")
 		})

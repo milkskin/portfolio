@@ -88,6 +88,41 @@ $(function () {
 			inst.set_type(data.node, "default")
 		})
 	})
+	.on("copy_node.jstree", function (e, data) {
+		var inst = data.instance
+		var new_parent = inst.get_node(data.parent)
+		var old_parent = inst.get_node(data.old_parent)
+
+		inst.set_type(data.node, "temporary")
+
+		$.post("/storagetree?operation=copy_node", {
+			"new_parent_uri" : new_parent.a_attr.href,
+			"old_parent_uri" : old_parent.a_attr.href,
+			"text" : data.node.text
+		})
+		.fail(function () {
+			inst.refresh()
+		})
+		.done(function (d) {
+			var descendant = data.node.children.slice()
+
+			data.node.a_attr.href = new_parent.a_attr.href + d.text + "/"
+
+			for (var idx = 0; idx < descendant.length; idx += 1) {
+				var value = descendant[idx]
+				var obj = inst.get_node(value)
+				var obj_parent = inst.get_node(obj.parent)
+
+				obj.a_attr.href = obj_parent.a_attr.href + encodeURIComponent(obj.text) + "/"
+
+				$.each(obj.children, function (i, v) {
+					descendant.push(v)
+				})
+			}
+
+			inst.set_type(data.node, "default")
+		})
+	})
 	.jstree({
 		"core" : {
 			"check_callback" : function (operation, node, node_parent, node_position, more) {

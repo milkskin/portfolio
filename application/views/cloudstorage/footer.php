@@ -17,8 +17,8 @@ $(function () {
 		.fail(function () {
 			inst.refresh()
 		})
-		.done(function (d) {
-			data.node.a_attr.href = parent.a_attr.href + encodeURIComponent(d.text) + "/"
+		.done(function () {
+			data.node.a_attr.href = parent.a_attr.href + encodeURIComponent(newnode_text) + "/"
 			inst.set_text(data.node, newnode_text)
 			inst.set_type(data.node, "default")
 			inst.edit(data.node)
@@ -42,8 +42,8 @@ $(function () {
 		.fail(function () {
 			inst.refresh()
 		})
-		.done(function (d) {
-			data.node.a_attr.href = parent.a_attr.href + encodeURIComponent(d.text) + "/"
+		.done(function () {
+			data.node.a_attr.href = parent.a_attr.href + encodeURIComponent(data.text) + "/"
 			inst.set_type(data.node, "default")
 		})
 	})
@@ -56,7 +56,7 @@ $(function () {
 		.fail(function () {
 			inst.refresh()
 		})
-		.done(function (d) {
+		.done(function () {
 		})
 	})
 	.on("move_node.jstree", function (e, data) {
@@ -74,10 +74,10 @@ $(function () {
 		.fail(function () {
 			inst.refresh()
 		})
-		.done(function (d) {
+		.done(function () {
 			var descendant = data.node.children.slice()
 
-			data.node.a_attr.href = new_parent.a_attr.href + encodeURIComponent(d.text) + "/"
+			data.node.a_attr.href = new_parent.a_attr.href + encodeURIComponent(data.node.text) + "/"
 
 			for (var idx = 0; idx < descendant.length; idx += 1) {
 				var value = descendant[idx]
@@ -109,10 +109,10 @@ $(function () {
 		.fail(function () {
 			inst.refresh()
 		})
-		.done(function (d) {
+		.done(function () {
 			var descendant = data.node.children.slice()
 
-			data.node.a_attr.href = new_parent.a_attr.href + encodeURIComponent(d.text) + "/"
+			data.node.a_attr.href = new_parent.a_attr.href + encodeURIComponent(data.node.text) + "/"
 
 			for (var idx = 0; idx < descendant.length; idx += 1) {
 				var value = descendant[idx]

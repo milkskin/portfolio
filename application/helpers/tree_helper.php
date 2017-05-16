@@ -61,7 +61,7 @@ if ( ! function_exists('structure_to_array'))
 
 			if (is_array($value) && ! is_link($file_path))
 			{
-				exec("ls -ai {$file_path} | awk '{print $1}' | sed '2,\$d'", $file_info);
+				exec("tree -dfiv --inodes /data | grep {$file_path}$ | awk '{print substr($2, 0, length($2) - 1)}'", $file_info);
 				$inode = $file_info[0];
 				unset($file_info);
 

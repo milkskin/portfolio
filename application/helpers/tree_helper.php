@@ -6,7 +6,7 @@ if ( ! function_exists('structure_to_markup'))
 	function structure_to_markup($dir_struct = array(), $alter_uri = '/', $is_root = TRUE)
 	{
 		$uri_segment = explode('/', uri_string());
-		$dir_path = STORAGEPATH . preg_replace("/^\/".STORAGEDIR."/", '', $alter_uri);
+		$dir_path = STORAGEPATH . preg_replace("/^\/".STORAGEURI."/", '', $alter_uri);
 		$open_tag = '<ul>';
 		$inner_tag = '';
 		$close_tag = '</ul>';
@@ -49,8 +49,8 @@ if ( ! function_exists('structure_to_array'))
 	{
 		$is_root = ($parent_id === '#');
 		$uri_segment = explode('/', uri_string());
-		$uri_matched_path = STORAGEPATH . preg_replace("/^".STORAGEDIR."/", '', uri_string());
-		$dir_path = STORAGEPATH . preg_replace("/^\/".STORAGEDIR."/", '', $alter_uri);
+		$uri_matched_path = STORAGEPATH . preg_replace("/^".STORAGEURI."/", '', uri_string());
+		$dir_path = STORAGEPATH . preg_replace("/^\/".STORAGEURI."/", '', $alter_uri);
 		$node_list = array();
 
 		ksort($dir_struct);

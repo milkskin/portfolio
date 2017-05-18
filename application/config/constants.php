@@ -90,5 +90,12 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 |--------------------------------------------------------------------------
 */
 defined('DIR_SEPARATOR') OR define('DIR_SEPARATOR', DIRECTORY_SEPARATOR); // alias
-defined('STORAGEPATH') OR define('STORAGEPATH', readlink(FCPATH . 'data'));
-defined('STORAGEDIR') OR define('STORAGEDIR', 'cloudstorage');
+defined('STORAGEURI') OR define('STORAGEURI', 'cloudstorage');
+if (ENVIRONMENT === 'development')
+{
+	defined('STORAGEPATH') OR define('STORAGEPATH', readlink(FCPATH . 'dev_data'));
+}
+else
+{
+	defined('STORAGEPATH') OR define('STORAGEPATH', readlink(FCPATH . 'data'));
+}

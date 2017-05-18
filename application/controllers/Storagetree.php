@@ -17,8 +17,8 @@ class Storagetree extends CI_Controller {
 					$parent_uri = $this->input->post('parent_uri');
 					$text = $this->input->post('text');
 
-					$parent_path = STORAGEPATH . preg_replace("/^\/".STORAGEURI."/", '', $parent_uri);
-					$dir_path = $parent_path . rawurlencode($text);
+					$parent_path = STORAGEPATH.preg_replace('/^\/'.STORAGEURI.'/', '', $parent_uri);
+					$dir_path = $parent_path.rawurlencode($text);
 
 					exec("mkdir {$dir_path}", $output, $status);
 					if ($status !== 0)
@@ -34,9 +34,9 @@ class Storagetree extends CI_Controller {
 					$new_text = $this->input->post('new_text');
 					$old_text = $this->input->post('old_text');
 
-					$parent_path = STORAGEPATH . preg_replace("/^\/".STORAGEURI."/", '', $parent_uri);
-					$new_path = $parent_path . rawurlencode($new_text);
-					$old_path = $parent_path . rawurlencode($old_text);
+					$parent_path = STORAGEPATH.preg_replace('/^\/'.STORAGEURI.'/', '', $parent_uri);
+					$new_path = $parent_path.rawurlencode($new_text);
+					$old_path = $parent_path.rawurlencode($old_text);
 
 					exec("mv {$old_path} {$new_path}", $output, $status);
 					if ($status !== 0)
@@ -50,7 +50,7 @@ class Storagetree extends CI_Controller {
 				case 'delete_node':
 					$uri = $this->input->post('uri');
 
-					$dir_path = STORAGEPATH . preg_replace("/^\/".STORAGEURI."/", '', $uri);
+					$dir_path = STORAGEPATH.preg_replace('/^\/'.STORAGEURI.'/', '', $uri);
 
 					exec("rm -r {$dir_path}", $output, $status);
 					if ($status !== 0)
@@ -66,8 +66,8 @@ class Storagetree extends CI_Controller {
 					$old_parent_uri = $this->input->post('old_parent_uri');
 					$text = $this->input->post('text');
 
-					$new_path = STORAGEPATH . preg_replace("/^\/".STORAGEURI."/", '', $new_parent_uri) . rawurlencode($text);
-					$old_path = STORAGEPATH . preg_replace("/^\/".STORAGEURI."/", '', $old_parent_uri) . rawurlencode($text);
+					$new_path = STORAGEPATH.preg_replace('/^\/'.STORAGEURI.'/', '', $new_parent_uri).rawurlencode($text);
+					$old_path = STORAGEPATH.preg_replace('/^\/'.STORAGEURI.'/', '', $old_parent_uri).rawurlencode($text);
 
 					exec("mv {$old_path} {$new_path}", $output, $status);
 					if ($status !== 0)
@@ -83,8 +83,8 @@ class Storagetree extends CI_Controller {
 					$old_parent_uri = $this->input->post('old_parent_uri');
 					$text = $this->input->post('text');
 
-					$new_path = STORAGEPATH . preg_replace("/^\/".STORAGEURI."/", '', $new_parent_uri) . rawurlencode($text);
-					$old_path = STORAGEPATH . preg_replace("/^\/".STORAGEURI."/", '', $old_parent_uri) . rawurlencode($text);
+					$new_path = STORAGEPATH.preg_replace('/^\/'.STORAGEURI.'/', '', $new_parent_uri).rawurlencode($text);
+					$old_path = STORAGEPATH.preg_replace('/^\/'.STORAGEURI.'/', '', $old_parent_uri).rawurlencode($text);
 
 					exec("cp -r {$old_path} {$new_path}", $output, $status);
 					if ($status !== 0)
@@ -96,7 +96,7 @@ class Storagetree extends CI_Controller {
 
 					break;
 				default:
-					throw new Exception('Unsupported operation: ' . $operation);
+					throw new Exception('Unsupported operation: '.$operation);
 					break;
 			}
 
@@ -105,7 +105,7 @@ class Storagetree extends CI_Controller {
 		}
 		catch (Exception $e)
 		{
-			header($this->input->server('SERVER_PROTOCOL') . ' 500 Server Error');
+			header($this->input->server('SERVER_PROTOCOL').' 500 Server Error');
 			header('Status: 500 Server Error');
 			echo $e->getMessage();
 		}

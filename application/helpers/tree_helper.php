@@ -6,7 +6,7 @@ if ( ! function_exists('structure_to_markup'))
 	function structure_to_markup($dir_struct = array(), $alter_uri = '/', $is_root = TRUE)
 	{
 		$uri_segment = explode('/', uri_string());
-		$dir_path = STORAGEPATH . preg_replace("/^\/".STORAGEURI."/", '', $alter_uri);
+		$dir_path = STORAGEPATH.preg_replace('/^\/'.STORAGEURI.'/', '', $alter_uri);
 		$open_tag = '<ul>';
 		$inner_tag = '';
 		$close_tag = '</ul>';
@@ -15,18 +15,18 @@ if ( ! function_exists('structure_to_markup'))
 
 		foreach ($dir_struct as $key => $value)
 		{
-			$file_path = $dir_path . preg_replace('/'.preg_quote(DIR_SEPARATOR, '/').'$/', '', $key);
+			$file_path = $dir_path.preg_replace('/'.preg_quote(DIR_SEPARATOR, '/').'$/', '', $key);
 
 			if (is_array($value) && ! is_link($file_path))
 			{
 				$inner_tag .= '<li>';
-				$inner_tag .= ('<a href="' . $alter_uri . $key . '">');
+				$inner_tag .= ('<a href="'.$alter_uri.$key.'">');
 				$inner_tag .= ($is_root ? $key : rawurldecode(preg_replace('/'.preg_quote(DIR_SEPARATOR, '/').'$/', '', $key)));
 				$inner_tag .= '</a>';
 
 				if ( ! empty($value))
 				{
-					$inner_tag .= structure_to_markup($value, $alter_uri . $key, FALSE);
+					$inner_tag .= structure_to_markup($value, $alter_uri.$key, FALSE);
 				}
 
 				$inner_tag .= '</li>';
@@ -39,7 +39,7 @@ if ( ! function_exists('structure_to_markup'))
 			$close_tag = '';
 		}
 
-		return ($open_tag . $inner_tag . $close_tag);
+		return ($open_tag.$inner_tag.$close_tag);
 	}
 }
 
@@ -49,15 +49,15 @@ if ( ! function_exists('structure_to_array'))
 	{
 		$is_root = ($parent_id === '#');
 		$uri_segment = explode('/', uri_string());
-		$uri_matched_path = STORAGEPATH . preg_replace("/^".STORAGEURI."/", '', uri_string());
-		$dir_path = STORAGEPATH . preg_replace("/^\/".STORAGEURI."/", '', $alter_uri);
+		$uri_matched_path = STORAGEPATH.preg_replace('/^'.STORAGEURI.'/', '', uri_string());
+		$dir_path = STORAGEPATH.preg_replace('/^\/'.STORAGEURI.'/', '', $alter_uri);
 		$node_list = array();
 
 		ksort($dir_struct);
 
 		foreach ($dir_struct as $key => $value)
 		{
-			$file_path = $dir_path . preg_replace('/'.preg_quote(DIR_SEPARATOR, '/').'$/', '', $key);
+			$file_path = $dir_path.preg_replace('/'.preg_quote(DIR_SEPARATOR, '/').'$/', '', $key);
 
 			if (is_array($value) && ! is_link($file_path))
 			{
@@ -66,7 +66,7 @@ if ( ! function_exists('structure_to_array'))
 				unset($file_info);
 
 				$node_info = array(
-					'id' => "dir_{$inode}",
+					'id' => 'dir_'.$inode,
 					'parent' => $parent_id,
 					'text' => ($is_root ? $key : rawurldecode(preg_replace('/'.preg_quote(DIR_SEPARATOR, '/').'$/', '', $key))),
 					'state' => array(
@@ -74,7 +74,7 @@ if ( ! function_exists('structure_to_array'))
 						'selected' => ($file_path === $uri_matched_path),
 					),
 					'a_attr' => array(
-						'href' => $alter_uri . $key,
+						'href' => $alter_uri.$key,
 					),
 					'type' => ($is_root ? 'root' : 'default'),
 				);
@@ -82,7 +82,7 @@ if ( ! function_exists('structure_to_array'))
 
 				if ( ! empty($value))
 				{
-					$subtree_node_list = structure_to_array($value, $alter_uri . $key, "dir_{$inode}");
+					$subtree_node_list = structure_to_array($value, $alter_uri.$key, 'dir_'.$inode);
 					$node_list = array_merge($node_list, $subtree_node_list);
 				}
 			}

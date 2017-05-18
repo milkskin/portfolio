@@ -93,9 +93,9 @@ defined('DIR_SEPARATOR') OR define('DIR_SEPARATOR', DIRECTORY_SEPARATOR); // ali
 defined('STORAGEURI') OR define('STORAGEURI', 'cloudstorage');
 if (ENVIRONMENT === 'development')
 {
-	defined('STORAGEPATH') OR define('STORAGEPATH', readlink(FCPATH . 'dev_data'));
+	defined('STORAGEPATH') OR define('STORAGEPATH', readlink(FCPATH.'dev_data'));
 }
 else
 {
-	defined('STORAGEPATH') OR define('STORAGEPATH', readlink(FCPATH . 'data'));
+	defined('STORAGEPATH') OR define('STORAGEPATH', readlink(FCPATH.'data'));
 }

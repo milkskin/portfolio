@@ -14,7 +14,7 @@ class Cloudstorage extends CI_Controller {
 		$root_struct = array(
 			DIR_SEPARATOR => $dir_struct,
 		);
-		$root_alter_uri = "/cloudstorage";
+		$root_alter_uri = '/cloudstorage';
 
 		$data = array(
 			'dir_list_markup' => structure_to_markup($root_struct, $root_alter_uri),

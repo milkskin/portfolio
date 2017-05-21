@@ -45,6 +45,7 @@ $(function () {
 		.done(function () {
 			data.node.a_attr.href = parent.a_attr.href + encodeURIComponent(data.text) + "/"
 			inst.set_type(data.node, "default")
+			inst.redraw(true)
 		})
 	})
 	.on("delete_node.jstree", function (e, data) {
@@ -92,6 +93,7 @@ $(function () {
 			}
 
 			inst.set_type(data.node, "default")
+			inst.redraw(true)
 		})
 	})
 	.on("copy_node.jstree", function (e, data) {
@@ -127,6 +129,7 @@ $(function () {
 			}
 
 			inst.set_type(data.node, "default")
+			inst.redraw(true)
 		})
 	})
 	.jstree({

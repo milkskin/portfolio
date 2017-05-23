@@ -94,8 +94,10 @@ defined('STORAGEURI') OR define('STORAGEURI', 'cloudstorage');
 if (ENVIRONMENT === 'development')
 {
 	defined('STORAGEPATH') OR define('STORAGEPATH', readlink(FCPATH.'dev_data'));
+	defined('THUMBNAILPATH') OR define('THUMBNAILPATH', readlink(FCPATH.'dev_thumbnail'));
 }
 else
 {
 	defined('STORAGEPATH') OR define('STORAGEPATH', readlink(FCPATH.'data'));
+	defined('THUMBNAILPATH') OR define('THUMBNAILPATH', readlink(FCPATH.'thumbnail'));
 }

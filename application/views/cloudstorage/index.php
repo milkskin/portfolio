@@ -1,3 +1,17 @@
+<?php if ($error_alert): ?>
+<div id="dialog" title="Alert" role="alert">
+	<div class="media">
+		<div class="media-left media-middle">
+			<i class="glyphicon glyphicon-alert"></i>
+		</div>
+		<div class="media-right">
+			<div>There is no directory for <strong><?php echo $error_dir; ?></strong>.</div>
+			<div>It may have been moved or deleted.</div>
+		</div>
+	</div>
+</div>
+
+<?php endif ?>
 <div class="col-xs-12 col-md-4">
 	<h2>jsTree area</h2>
 

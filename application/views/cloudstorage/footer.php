@@ -1,5 +1,13 @@
 <script>
 $(function () {
+<?php if ($error_alert): ?>
+	$("#dialog").dialog({
+		"resizable" : false,
+		"width" : 400,
+		"modal" : true
+	})
+
+<?php endif ?>
 	$("#jstree_demo_div")
 	.on("create_node.jstree", function (e, data) {
 		var inst = data.instance

@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Portfolio</title>
 <link rel="stylesheet" href="/assets/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/libs/ui/1.12.1/themes/base/jquery-ui.min.css">
 <link rel="stylesheet" href="/assets/libs/jstree/3.3.4/dist/themes/default/style.min.css">
 <link rel="stylesheet" href="/assets/libs/fileupload/9.18.0/css/blueimp-gallery.min.css">
 <link rel="stylesheet" href="/assets/libs/fileupload/9.18.0/css/jquery.fileupload.css">

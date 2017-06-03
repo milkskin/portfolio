@@ -314,7 +314,8 @@ $(function () {
 	$("#fileupload").fileupload({
 		// Uncomment the following to send cross-domain cookies:
 		// "xhrFields" : { "withCredentials" : true },
-		"url" : "storagedata"
+		"url" : "storagedata",
+		"dropZone" : $("#dropzone")
 	})
 
 	// Enable iframe cross-domain access via redirect option:
@@ -342,6 +343,46 @@ $(function () {
 	})
 	.always(function () {
 		$(this).removeClass("fileupload-processing")
+	})
+
+	$(document).bind("dragover", function (e) {
+		var dropZone = $("#dropzone")
+		var timeout = window.dropZoneTimeout
+
+		if ( ! timeout) {
+			dropZone.addClass("in")
+		}
+		else {
+			clearTimeout(timeout)
+		}
+
+		var found = false
+		var node = e.target
+
+		do {
+			if (node === dropZone[0]) {
+				found = true
+				break
+			}
+
+			node = node.parentNode
+		} while (node != null)
+
+		if (found) {
+			dropZone.addClass("hover")
+		}
+		else {
+			dropZone.removeClass("hover")
+		}
+
+		window.dropZoneTimeout = setTimeout(function () {
+			window.dropZoneTimeout = null
+			dropZone.removeClass("in hover")
+		}, 100)
+	})
+
+	$(document).bind("drop dragover", function (e) {
+		e.preventDefault()
 	})
 })
 </script>

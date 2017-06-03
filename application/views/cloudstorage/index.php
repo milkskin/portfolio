@@ -20,7 +20,7 @@
 	</div>
 </div>
 
-<div class="col-xs-12 col-md-8">
+<div id="dropzone" class="fade well col-xs-12 col-md-8">
 	<h2>File uploader area</h2>
 
 	<!-- The file upload form used as target for the file upload widget -->

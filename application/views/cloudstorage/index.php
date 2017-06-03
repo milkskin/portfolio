@@ -16,7 +16,7 @@
 	<h2>jsTree area</h2>
 
 	<div id="jstree_demo_div">
-		<?php echo $dir_list_markup . PHP_EOL; ?>
+		<?php echo $dir_list_markup.PHP_EOL; ?>
 	</div>
 </div>
 

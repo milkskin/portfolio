@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <?php include_once('base/header.php'); ?>
 <?php if (file_exists($_header)) { include_once($_header); } ?>

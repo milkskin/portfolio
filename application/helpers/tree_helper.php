@@ -91,3 +91,18 @@ if ( ! function_exists('structure_to_array'))
 		return $node_list;
 	}
 }
+
+if ( ! function_exists('path_encode'))
+{
+	function path_encode($dir_path, $separator = DIR_SEPARATOR)
+	{
+		$segment = explode($separator, $dir_path);
+
+		foreach ($segment as $key => $value)
+		{
+			$segment[$key] = rawurlencode($value);
+		}
+
+		return implode($separator, $segment);
+	}
+}
